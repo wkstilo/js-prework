@@ -1,4 +1,6 @@
 var buttonPaper, buttonRock, buttonScissors;
+var playerScore = 0;
+var computerScore = 0;
 
 buttonRock = document.getElementById('button-rock');
 buttonPaper = document.getElementById('button-paper');
@@ -32,12 +34,20 @@ function buttonClicked(argButtonName) {
       (argPlayerMove == 'nożyce' && argComputerMove == 'papier')
     ) {
       printMessage('Wygrywasz!');
+      playerScore++;
     } else if (argPlayerMove == argComputerMove) {
       printMessage('Remis');
     } else {
       printMessage('Przegrywasz :(');
+      computerScore++;
     }
     printMessage('Zagrałem ' + argComputerMove + ', a Ty ' + argPlayerMove);
+    displayScore();
+  }
+
+  function displayScore() {
+    var scoreElement = document.getElementById('result');
+    scoreElement.textContent = playerScore + ' - ' + computerScore;
   }
 
   playerMove = argButtonName;
@@ -47,6 +57,7 @@ function buttonClicked(argButtonName) {
   computerMove = getMoveName(randomNumber);
   console.log('ruch komputera to: ' + computerMove);
   displayResult(playerMove, computerMove);
+  displayScore(); // Dodane wywołanie funkcji displayScore() po inkrementacji liczników
 }
 
 buttonRock.addEventListener('click', function () {
